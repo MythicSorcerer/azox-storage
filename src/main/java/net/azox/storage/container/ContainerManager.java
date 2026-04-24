@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -187,6 +188,10 @@ public final class ContainerManager {
             }
             this.save();
         }
+    }
+
+    public Collection<ContainerData> getContainers() {
+        return this.containers.values();
     }
 
     public List<ContainerData> getContainers(final UUID playerId) {

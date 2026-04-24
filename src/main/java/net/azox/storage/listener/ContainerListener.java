@@ -77,9 +77,14 @@ public final class ContainerListener implements Listener {
 
         for (final var loc : adjacent) {
             if (loc.getBlock().getType() == Material.CHEST) {
-                final var existing = this.plugin.getContainerManager().getContainer(loc);
-                if (existing != null) {
-                    return loc;
+                for (final var container : this.plugin.getContainerManager().getContainers()) {
+                    final var cLoc = container.getLocation();
+                    if (cLoc.getWorld().getName().equals(loc.getWorld().getName()) &&
+                            cLoc.getBlockX() == loc.getBlockX() &&
+                            cLoc.getBlockY() == loc.getBlockY() &&
+                            cLoc.getBlockZ() == loc.getBlockZ()) {
+                        return loc;
+                    }
                 }
             }
         }
