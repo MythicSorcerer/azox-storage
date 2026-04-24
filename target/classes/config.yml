@@ -1,0 +1,25 @@
+container-uuid-length: 5
+allow-chest-theft: false
+anti-grave-robbery-seconds: 0
+grave-despawn-time: 300
+dropped-item-despawn-time: 6000
+trial-chambers-reach: 0.0
+
+logging:
+  container-events: true
+  item-transfers: true
+  per-container-logs: false
+
+limits:
+  max-locked-containers: 10
+  max-presets-per-container: 5
+  max-keys-per-container: 10
+
+messages:
+  prefix: "&8[&6Azox&fStorage&8] "
+  no-permission: "&cYou don't have permission to do that!"
+  container-locked: "&cThis container is locked!"
+  container-opened: "&aYou opened &e%container%&a."
+  grave-created: "&aYour items have been saved in a grave."
+  key-created: "&aYou created a key for &e%container%&a."
+  key-revoked: "&aYou revoked a key for &e%container%&a."

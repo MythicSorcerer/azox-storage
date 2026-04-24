@@ -1,0 +1,45 @@
+name: Azox Storage
+version: 1.0.0-SNAPSHOT
+main: net.azox.storage.AzoxStorage
+api-version: '1.21'
+author: Azox
+description: Container ownership and protection plugin
+
+commands:
+  azoxstorage:
+    description: Main admin command
+    usage: /<command> <reload|admin>
+    permissions:
+      azoxstorage.admin
+  bypasslocks:
+    description: Toggle lock bypass mode
+    usage: /<command>
+    permissions:
+      azoxstorage.bypass
+  chestconfig:
+    description: Open chest configuration menu
+    usage: /<command> [page]
+    permissions:
+      azoxstorage.use
+  void:
+    description: Access void storage for lost items
+    usage: /<command>
+    permissions:
+      azoxstorage.use
+
+permissions:
+  azoxstorage.use:
+    description: Basic usage of the plugin
+    default: true
+  azoxstorage.bypass:
+    description: Bypass container locks
+    default: op
+  azoxstorage.admin:
+    description: Admin commands
+    default: op
+  azoxstorage.grave.create:
+    description: Create graves on death
+    default: true
+  azoxstorage.key.create:
+    description: Create container keys
+    default: true
