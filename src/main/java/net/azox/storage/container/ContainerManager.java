@@ -86,6 +86,45 @@ public final class ContainerManager {
                 return container;
             }
         }
+
+        if (location.getBlock().getType() == Material.CHEST) {
+            return this.findLinkedContainer(location);
+        }
+        
+        return null;
+    }
+
+    private ContainerData findLinkedContainer(final Location location) {
+        final var world = location.getWorld();
+        final int x = location.getBlockX();
+        final int y = location.getBlockY();
+        final int z = location.getBlockZ();
+
+        final Location[] adjacent = {
+            new Location(world, x - 1, y, z),
+            new Location(world, x + 1, y, z),
+            new Location(world, x, y, z - 1),
+            new Location(world, x, y, z + 1)
+        };
+
+        for (final var adj : adjacent) {
+            if (adj.getBlock().getType() == Material.CHEST) {
+                final String adjWorld = adj.getWorld().getName();
+                final int adjX = adj.getBlockX();
+                final int adjY = adj.getBlockY();
+                final int adjZ = adj.getBlockZ();
+
+                for (final ContainerData container : this.containers.values()) {
+                    final var loc = container.getLocation();
+                    if (loc.getWorld().getName().equals(adjWorld) &&
+                            loc.getBlockX() == adjX &&
+                            loc.getBlockY() == adjY &&
+                            loc.getBlockZ() == adjZ) {
+                        return container;
+                    }
+                }
+            }
+        }
         return null;
     }
 
