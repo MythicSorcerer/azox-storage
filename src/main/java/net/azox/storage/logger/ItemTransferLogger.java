@@ -79,9 +79,9 @@ public final class ItemTransferLogger {
     public void reload() {
     }
 
-    public record ItemSerialize(int type, int amount, short damage, String displayName, int customModelData) {
+    public record ItemSerialize(String material, int amount, short damage, String displayName, int customModelData) {
         public ItemSerialize(final org.bukkit.inventory.ItemStack item) {
-            this(item.getType().getId(), item.getAmount(), item.getDurability(), item.hasItemMeta() ? item.getItemMeta().getDisplayName() : null, item.hasItemMeta() ? item.getItemMeta().getCustomModelData() : 0);
+            this(item.getType().getKey().toString(), item.getAmount(), item.getDurability(), item.hasItemMeta() ? item.getItemMeta().getDisplayName() : null, item.hasItemMeta() ? item.getItemMeta().getCustomModelData() : 0);
         }
     }
 }
