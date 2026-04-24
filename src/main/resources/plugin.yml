@@ -1,4 +1,4 @@
-name: Azox Storage
+name: AzoxStorage
 version: ${project.version}
 main: net.azox.storage.AzoxStorage
 api-version: '1.21'
