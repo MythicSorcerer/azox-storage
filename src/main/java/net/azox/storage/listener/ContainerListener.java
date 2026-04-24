@@ -1,5 +1,6 @@
 package net.azox.storage.listener;
 
+import org.bukkit.Location;
 import net.azox.storage.AzoxStorage;
 import net.azox.storage.container.ContainerData;
 import net.azox.storage.util.MessageUtil;
@@ -43,14 +44,46 @@ public final class ContainerListener implements Listener {
         }
 
         final var location = block.getLocation();
-        final var existingContainer = this.plugin.getContainerManager().getContainer(location);
+        final var containerManager = this.plugin.getContainerManager();
+        final var existingContainer = containerManager.getContainer(location);
 
         if (existingContainer != null) {
             return;
         }
 
-        this.plugin.getContainerManager().registerContainer(player, location, type);
+        if (type == Material.CHEST) {
+            final var adjacent = this.findLinkedChest(location);
+            if (adjacent != null) {
+                return;
+            }
+        }
+
+        containerManager.registerContainer(player, location, type);
         player.sendMessage("§aContainer registered as your locked container!");
+    }
+
+    private Location findLinkedChest(final Location location) {
+        final var world = location.getWorld();
+        final int x = location.getBlockX();
+        final int y = location.getBlockY();
+        final int z = location.getBlockZ();
+
+        final Location[] adjacent = {
+            new Location(world, x - 1, y, z),
+            new Location(world, x + 1, y, z),
+            new Location(world, x, y, z - 1),
+            new Location(world, x, y, z + 1)
+        };
+
+        for (final var loc : adjacent) {
+            if (loc.getBlock().getType() == Material.CHEST) {
+                final var existing = this.plugin.getContainerManager().getContainer(loc);
+                if (existing != null) {
+                    return loc;
+                }
+            }
+        }
+        return null;
     }
 
     @EventHandler(priority = EventPriority.HIGH)

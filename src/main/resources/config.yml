@@ -11,9 +11,9 @@ logging:
   per-container-logs: false
 
 limits:
-  max-locked-containers: 10
-  max-presets-per-container: 5
-  max-keys-per-container: 10
+  max-locked-containers: -1
+  max-presets-per-container: -1
+  max-keys-per-container: -1
 
 messages:
   prefix: "&8[&6Azox&fStorage&8] "

@@ -52,9 +52,9 @@ public final class PluginConfig {
         this.logContainerEvents = this.config.getBoolean("logging.container-events", true);
         this.logItemTransfers = this.config.getBoolean("logging.item-transfers", true);
         this.perContainerLogs = this.config.getBoolean("logging.per-container-logs", false);
-        this.maxLockedContainers = this.config.getInt("limits.max-locked-containers", 10);
-        this.maxPresetsPerContainer = this.config.getInt("limits.max-presets-per-container", 5);
-        this.maxKeysPerContainer = this.config.getInt("limits.max-keys-per-container", 10);
+        this.maxLockedContainers = this.config.getInt("limits.max-locked-containers", -1);
+        this.maxPresetsPerContainer = this.config.getInt("limits.max-presets-per-container", -1);
+        this.maxKeysPerContainer = this.config.getInt("limits.max-keys-per-container", -1);
         this.prefix = this.config.getString("messages.prefix", "&8[&6Azox&fStorage&8] ");
     }
 
