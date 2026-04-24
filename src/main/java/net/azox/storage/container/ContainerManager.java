@@ -66,11 +66,8 @@ public final class ContainerManager {
                     container.getType(),
                     container.getContainerId()
             );
-            final var meta = containerBlock.getCustomName();
-            if (meta != null) {
-                containerBlock.setCustomName(displayName);
-                containerBlock.update();
-            }
+            containerBlock.setCustomName(net.azox.storage.util.MessageUtil.color(displayName));
+            containerBlock.update();
         }
     }
 
