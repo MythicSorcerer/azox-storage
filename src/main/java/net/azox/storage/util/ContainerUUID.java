@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class ContainerUUID {
 
-    private static final String ALPHANUMERIC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+    private static final String ALPHANUMERIC = "0123456789abcdefghijklmnopqrstuvwxyz";
     private static final SecureRandom RANDOM = new SecureRandom();
     private static final Map<Material, String> TYPE_NAMES = Map.of(
             Material.CHEST, "Chest",
