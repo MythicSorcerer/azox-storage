@@ -140,7 +140,11 @@ public final class ContainerListener implements Listener {
             return;
         }
 
-        final var container = this.plugin.getContainerManager().getContainer(block.getLocation());
+        var container = this.plugin.getContainerManager().getContainer(block.getLocation());
+
+        if (container == null && type == Material.CHEST) {
+            container = this.findLinkedContainer(block.getLocation());
+        }
 
         if (container == null) {
             return;
@@ -158,5 +162,34 @@ public final class ContainerListener implements Listener {
 
         event.setCancelled(true);
         player.sendMessage("§cThis container is locked!");
+    }
+
+    private ContainerData findLinkedContainer(final Location location) {
+        final var world = location.getWorld();
+        final int x = location.getBlockX();
+        final int y = location.getBlockY();
+        final int z = location.getBlockZ();
+
+        final Location[] adjacent = {
+            new Location(world, x - 1, y, z),
+            new Location(world, x + 1, y, z),
+            new Location(world, x, y, z - 1),
+            new Location(world, x, y, z + 1)
+        };
+
+        for (final var loc : adjacent) {
+            if (loc.getBlock().getType() == Material.CHEST) {
+                for (final var c : this.plugin.getContainerManager().getContainers()) {
+                    final var cLoc = c.getLocation();
+                    if (cLoc.getWorld().getName().equals(loc.getWorld().getName()) &&
+                            cLoc.getBlockX() == loc.getBlockX() &&
+                            cLoc.getBlockY() == loc.getBlockY() &&
+                            cLoc.getBlockZ() == loc.getBlockZ()) {
+                        return c;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
