@@ -190,7 +190,19 @@ public final class ContainerManager {
 
     private ContainerData loadContainer(final org.bukkit.configuration.ConfigurationSection section) {
         try {
-            final UUID owner = UUID.fromString(section.getString("owner", ""));
+            final String ownerStr = section.getString("owner", "");
+            if (ownerStr == null || ownerStr.isEmpty()) {
+                return null;
+            }
+            
+            final UUID owner;
+            try {
+                owner = UUID.fromString(ownerStr);
+            } catch (final IllegalArgumentException e) {
+                this.plugin.getLogger().warning("Failed to load container: Invalid UUID string: " + ownerStr);
+                return null;
+            }
+            
             final String ownerName = section.getString("ownerName", "");
             final String typeStr = section.getString("type", "CHEST");
             final Material type = Material.valueOf(typeStr);
